@@ -21,13 +21,6 @@ Katie Jeynes-Cupper, University of Illinois Urbana-Champaign, kejc@illinois.edu
 
 <br>
 
-IMPORTANT UPDATES
-======================================================================
-Recently we were made aware of a bug in the RNAmergeGenomes function 
-which has now been fixed. Similarly, we introduced a new plotting function to 
-plot the distribution of sRNAs across genomic features. 
-
-<br>
 
 Table of Contents
 ======================================================================
@@ -36,10 +29,13 @@ Table of Contents
 -   [Installation of OS dependencies](#Installation-of-OS-dependencies)
 -   [Basic Usage](#Basic-Usage)
 -   [Merging genome reference assemblies and/or genome annotations](#Merging-genome-reference-assemblies-and/or-genome-annotations)
--   [Small RNA sequencing read alignment and clustering ](#Small RNA sequencing read alignment and clustering )
--   [Messenger RNA sequencing read alignment and clustering  ](#Messenger RNA sequencing read alignment and clustering  )
--   [Basic Usage](#Basic-Usage)
+-   [Small RNA sequencing read alignment and clustering](#Small-RNA-sequencing-read-alignment-and-clustering)
+-   [Messenger RNA sequencing read alignment and clustering  ](#Messenger-RNA-sequencing-read-alignment-and-clustering)
+-   [Overview of sRNA methods](#Overview-of-sRNA-methods)
+-   [Overview of mRNA methods](#Overview-of-mRNA-methods)
+-   [Issues](#Issues)
 
+  
 <br>
 
 
@@ -169,7 +165,7 @@ unique read alignment, which is the standard for this method when detecting mobi
 molecules.
 
 ``` r
-map_sRNA -FASTA /path/to/fasta -index /path/to/index -i /path/to/fastq -o /path/to/output 
+map_sRNA -FASTA ./path/to/fasta -index ./path/to/index -i ./path/to/fastq -o ./path/to/output 
 
 ```
 
@@ -200,7 +196,7 @@ unique read alignment, which is the standard for this method when detecting mobi
 molecules.
 
 ``` r
-map_mRNA -FASTA /path/to/fasta -index /path/to/index -GFF /path/to/gff -i /path/to/fastq -o /path/to/output 
+map_mRNA -FASTA ./path/to/fasta -index ./path/to/index -GFF ./path/to/gff -i ./path/to/fastq -o ./path/to/output 
 
 ```
 
