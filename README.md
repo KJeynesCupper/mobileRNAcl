@@ -1,6 +1,6 @@
-mobileRNA command-line <a ><img src="man/docs/logo.png" align="right" height="138" /></a>
+mobileRNA command-line <a ><img src="docs/logo.png" align="right" height="138" /></a>
 ======================================================================
-*UNDER DEVELOPMENT*
+***UNDER DEVELOPMENT*** <br>
 This is a command-line package to undertake the merging of genome reference, alignment and clustering dircecting from the command-line instead of
 using R as an interface. Please note that this is still under development. 
 
