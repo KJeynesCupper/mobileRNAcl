@@ -13,17 +13,21 @@ the command-line rather than via the R. This includes:
 1. Merging genome references and/or genome annotations
 2. Undertaking the alignement step & clustering for mRNA or sRNA sequencing reads
 
+<br>
 
 Author
 ======================================================================
 Katie Jeynes-Cupper, University of Illinois Urbana-Champaign, kejc@illinois.edu
 
+<br>
 
 IMPORTANT UPDATES
 ======================================================================
 Recently we were made aware of a bug in the RNAmergeGenomes function 
 which has now been fixed. Similarly, we introduced a new plotting function to 
 plot the distribution of sRNAs across genomic features. 
+
+<br>
 
 Table of Contents
 ======================================================================
@@ -35,6 +39,7 @@ Table of Contents
 -   [Small RNA sequencing read alignment and clustering ](#Small RNA sequencing read alignment and clustering )
 -   [Messenger RNA sequencing read alignment and clustering  ](#Messenger RNA sequencing read alignment and clustering  )
 -   [Basic Usage](#Basic-Usage)
+
 <br>
 
 
@@ -74,6 +79,7 @@ source ~/.bashrc   # or ~/.zshrc if you're using Zsh
 mobileRNAcl --help
 ```
 
+<br>
 
 Installation of OS dependencies 
 ======================================================================
@@ -94,6 +100,7 @@ For mRNA data, [HISAT2](https://anaconda.org/bioconda/hisat2) (Kim 2015),
 [SAMtools](https://anaconda.org/bioconda/samtools) (Danecek P 2021) are required 
 within the same Conda environment [@Anaconda].
 
+<br>
 
 Basic Usage
 ======================================================================
@@ -111,6 +118,7 @@ mobileRNAcl [function] [options...]
 ```
 
 
+<br>
 
 Merging genome reference assemblies and/or genome annotations
 ======================================================================
@@ -118,7 +126,6 @@ The two function to generated either a merged genome reference or annotation fun
 They can handle any number of input files and added the prefixes in the order supplied, in an alphabetical order.
 For instance, this means that for the first input file the identifying prefix is "A", the second input file is "B" 
 and so on. 
-
 
 
 <br>
@@ -148,6 +155,8 @@ make it identifable.
 RNAmergeAnnotations -i ./path/to/genome1.gff ./path/to/genome2.gff -o ./path/to/output.gff
 
 ```
+
+<br>
 
 
 Small RNA sequencing read alignment and clustering  
@@ -179,7 +188,7 @@ map_sRNA -FASTA /path/to/fasta -index /path/to/index -i /path/to/fastq -o /path/
 - `-dn_mirna`   dn_mirna (defalt = FALSE), activates a de novo comprehensive genome-wide search for miRNA loci
 
 
-
+<br>
 
 
 Messenger RNA sequencing read alignment and clustering  
@@ -226,7 +235,7 @@ Please notice the use of *_L1_1*, *_L1_2* and *_L2_1*, *_L2_2* - these are the k
 Input RNA sequencing files can be gzipped. 
 
 
-
+<br>
 
 Overview of sRNA methods
 ======================================================================
@@ -258,7 +267,7 @@ and as before the results of each sample are stored within it's respective folde
 The 'Results.txt' file imported into R using using [RNAimport()] in the `mobileRNA` R package. 
 
 
-
+<br>
 
 Overview of mRNA methods
 ======================================================================
@@ -289,7 +298,7 @@ For each sample, their folder stores several files:
 - [samplename]_unique_index.bam - The sorted and indexed, uniquely aligned reads
 - Results.txt - Raw count results to be imported into R using using [RNAimport()] in the `mobileRNA` R package. 
 
-
+<br>
 
 
 Issues
