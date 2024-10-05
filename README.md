@@ -1,4 +1,4 @@
-mobileRNA command-line <a href="kjeynescupper.github.io/mobileRNA/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+mobileRNA command-line <a ><img src="man/docs/logo.png" align="right" height="138" /></a>
 ======================================================================
 *UNDER DEVELOPMENT*
 This is a command-line package to undertake the merging of genome reference, alignment and clustering dircecting from the command-line instead of
