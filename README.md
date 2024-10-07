@@ -20,6 +20,7 @@ the command-line rather than via the R. This includes:
 Author
 ======================================================================
 Katie Jeynes-Cupper, University of Illinois Urbana-Champaign, kejc@illinois.edu
+<br>
 Marco Catoni, University of Birmingham
 
 <br>
