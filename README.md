@@ -109,10 +109,10 @@ mobileRNAcl [function] [options...]
 
     function:
 	RNAmergeGenomes			merge genome references
-	RNAmergeAnnotations	    merge genome annoations
-	map_sRNA			    Map and cluster small RNA sequencing reads
-	map_mRNA			    Map and cluster messenger RNA sequencing reads
-    --help                  Display this help message
+	RNAmergeAnnotations	    	merge genome annoations
+	map_sRNA			Map and cluster small RNA sequencing reads
+	map_mRNA			Map and cluster messenger RNA sequencing reads
+    	--help                  	Display this help message
 ```
 
 
