@@ -89,7 +89,7 @@ usage() {
             echo "  -n              nonunique, how to handle reads which aligned to or are assigned to more than one feature (default = none)"
             echo "  -j              type, the feature type defined by the 3rd column in GFF file (default = mRNA)"
             echo "  -d              idattr, the attribute to be used as feature ID from 9th column in GFF (default = Name)"
-            echo "  -p              python, the python version installed, for example python or python3. (default = python)"
+            echo "  -y              python, the python version installed, for example python or python3. (default = python)"
             echo ""
             echo "Description:"
             echo "  Aligns messenger RNA sequencing reads to given genome reference using HISAT2, retaining only uniquely aligned reads. 
