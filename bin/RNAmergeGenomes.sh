@@ -25,7 +25,7 @@ function RNAmergeGenomes() {
         esac
     done
 
-    # Check if input_files and output_file are set
+    # Check point: are there both input_files and output_file 
     if [[ ${#input_files[@]} -eq 0 || -z "$output_file" ]]; then
         echo "You must provide at least one input file with -i and an output file with -o."
         return 1
@@ -34,21 +34,32 @@ function RNAmergeGenomes() {
     # Temporary file to store the concatenated result
     temp_file=$(mktemp)
 
-    # Iterate over the input files and add prefixes to FASTA headers
+    # Iterate over the input files
     for i in "${!input_files[@]}"; do
         file="${input_files[$i]}"
-        prefix=$(printf "%c_" $((65 + i)))  # Generate prefix like A_, B_, C_, etc.
+        prefix=$(printf "%b_" $(printf '\\x%X' $((65 + i)))) #  add prefixes to pseudomolecule. 
         
         if [[ -f "$file" ]]; then
-            # Process the FASTA file: Add prefix to lines starting with '>'
-            sed "s/^>/>$prefix/" "$file" >> "$temp_file"
+            if [[ "$file" == *.gz ]]; then
+                # for  gzipped files
+                gunzip -dc "$file" | sed "s/^>/>$prefix/" >> "$temp_file"
+            
+            else
+                # Process regular files
+                sed "s/^>/>$prefix/" "$file" >> "$temp_file"
+            fi
         else
             echo "File not found: $file"
             return 1
         fi
     done
 
-    # Move the concatenated result to the output file
-    mv "$temp_file" "$output_file"
+    
+    # if user wants tozip output 
+    if [[ "$output_file" == *.gz ]]; then
+        gzip -c "$temp_file" > "$output_file"
+    else
+        mv "$temp_file" "$output_file"
+    fi
     echo "Genome reference files are merged. Merged Reference file is $output_file"
 }

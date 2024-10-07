@@ -3,97 +3,110 @@
 # Source function scripts  
 source ./bin/RNAmergeGenomes.sh   
 source ./bin/RNAmergeAnnotations.sh
-source ./bin/map_sRNA.sh   
-source ./bin/map_mRNA.sh   
-source ./bin/metrics_sRNA.sh
-source ./bin/metrics_mRNA.sh   
-
+source ./bin/map_sRNA.sh
+source ./bin/map_mRNA.sh
 
 #  usage function
 usage() {
     case "$1" in
         RNAmergeGenomes)
+            echo ""
             echo "Usage: mobileRNAcl RNAmergeGenomes [options]"
+            echo ""
             echo "Options:"
             echo "  --help Display this help message for RNAmergeGenomes"
             echo "  -i     the genome reference files seperated by tab (eg. reference1.fa reference2.fa)"
             echo "  -o     the output FASTA file "
-            
+            echo ""
             echo "Description:"
             echo "  Merges any number of FASTA files into a merged genome reference assembly.
                     It adds a unique identifier to each FASTA file in alphabetical order. Here, the first 
-                    FASTA file will have the prefix `A_` added to each chromosome, the secon FASTA will have the 
-                    prefix `B_` added to each chromosome, and so on."
+                    FASTA file will have the prefix A_ added to each chromosome, the secon FASTA will have the 
+                    prefix B_ added to each chromosome, and so on."
+            echo ""
             ;;
         RNAmergeAnnotations)
+            echo ""
             echo "Usage: mobileRNAcl RNAmergeAnnotations [options]"
+            echo ""
             echo "Options:"
             echo "  --help Display this help message for RNAmergeAnnotations"
             echo "  -i     the genome annotation files seperated by tab (eg. reference1.fa reference2.fa)"
             echo "  -o     the output GFF file"
-            
+            echo ""
             echo "Description:"
             echo "  Merges any number of GFF files into a merged genome reference assembly.
                     It adds a unique identifier to each GFF file in alphabetical order. Here, the first 
-                    GFF file will have the prefix `A_` added to each chromosome, the secon GFF will have the 
-                    prefix `B_` added to each chromosome, and so on."
+                    GFF file will have the prefix A_ added to each chromosome, the secon GFF will have the 
+                    prefix B_ added to each chromosome, and so on."
+            echo ""
             ;;
         map_sRNA)
-            echo "Usage: mobileRNAcl map_sRNA [options]"
+            echo ""
+            echo "Usage: mobileRNAcl map_sRNA -f -i -x [-threads threads] [-pad pad] [-mincov mincov] [-dicermin dicermin] [-dicermax dicermax] [-dn_mirna True|False]"
+            echo ""
             echo "Options:"
             echo "  --help          Display this help message for map_sRNA"
-            echo "  -FASTA          merged genome reference (FASTA), path to genome reference"
-            echo "  -index          bowtie genome reference index, path to index location" 
+            echo "  -f              merged genome reference (FASTA), path to genome reference"
+            echo "  -x              index merged genome reference (FASTA), path to genome reference index"
             echo "  -i              input files (FASTQ), path to sequencing reads" 
             echo "  -o              output location of results, directory to store output."
-            echo "  -threads        threads, set the number of threads to use where more threads means a faster completion time (default = 6)"
-            echo "  -pad            pad, initial peaks are merged if they are this distance or less from each other. Must >= 1 (default = 200)" 
-            echo "  -mincov         mincov, minimum alignment depth, in units of reads per million, required to nucleate a small RNA cluster during de novo cluster search. Must be a number > 0. (default = 0.5)"
-            echo "  -dicermin       dicermin, the minimum size in nucleotides of a valid small RNA (default = 20)"
-            echo "  -dicermax       dicermax, the maximum size in nucleotides of a valid small RNA (default = 24)"
-            echo "  -dn_mirna       dn_mirna, activates a de novo comprehensive genome-wide search for miRNA loci (defalt = FALSE)"
-            
+            echo "  -t        threads, set the number of threads to use where more threads means a faster completion time (default = 6)"
+            echo "  -p            pad, initial peaks are merged if they are this distance or less from each other. Must >= 1 (default = 200)" 
+            echo "  -m         mincov, minimum alignment depth, in units of reads per million, required to nucleate a small RNA cluster during de novo cluster search. Must be a number > 0. (default = 0.5)"
+            echo "  -d       dicermin, the minimum size in nucleotides of a valid small RNA (default = 20)"
+            echo "  -c       dicermax, the maximum size in nucleotides of a valid small RNA (default = 24)"
+            echo "  -n       dn_mirna, activates a de novo comprehensive genome-wide search for miRNA loci, can either be TRUE or FALSE (defalt = FALSE)"
+            echo ""
             echo "Description:"
             echo "  Aligns small RNA sequencing reads to given genome reference using Bowtie, retaining only uniquely aligned reads. 
                     To detect small RNAs, ShortStack is utilised. The alignment files for each sample are supplied to ShortStack and 
                     the inital de novo assessment is undertaken. For each sample, a GFF file is generated that stores the detected 
                     sRNA-producing genes. These are merged into a single locifile.txt which is utilised in the next step. The final 
                     sRNA clustering analysis is undertaken with ShortStack and the locifile.txt for each sample."
+            echo ""
+            echo "  The genome reference index is generated by Bowtie. In the -x parameter please specify the location/name to save the index.
+                    If the index is already present, it will not be rebuilt. "
+            echo ""
             ;;
         map_mRNA)
-            echo "Usage: mobileRNAcl map_sRNA [options]"
+            echo ""
+            echo "Usage: mobileRNAcl map_mRNA [options]"
+            echo ""
             echo "Options:"
-            echo "  --help          Display this help message for map_mRNA"
-            echo "  -FASTA          merged genome reference (FASTA)"
-            echo "  -index          bowtie genome reference index" 
-            echo "  -GFF            merged genome annotation (GFF)" 
+            echo "  --help          Display this help message for map_sRNA"
+            echo "  -f              merged genome reference (FASTA), path to genome reference"
+            echo "  -x              index merged genome reference (FASTA), path to genome reference index"
             echo "  -i              input files (FASTQ), path to sequencing reads" 
-            echo "  -o              output location of results"
-            echo "  -threads        threads (default = 6)"
-            echo "  -paired         paired (default = FALSE)" 
-            echo "  -format         format (default = bam)"
-            echo "  -a              a (default = 0)"
-            echo "  -order          order (default = pos)"
-            echo "  -stranded       stranded (default = NO)"
-            echo "  -mode           mode (default = union)"
-            echo "  -nonunique      nonunique (default = non)"
-            echo "  -type           type (default = mRNA)"
-            echo "  -idattr         idattr (default = Name)"
-            
+            echo "  -o              output location of results, directory to store output."
+            echo "  -t              threads, set the number of threads to use where more threads means a faster completion time (default = 6)"
+            echo "  -p              paired, is the data pair-end (default = FALSE)" 
+            echo "  -f              format, format, format of alignment files (default = bam)"
+            echo "  -a              a, minaqual, skips all reads with a MAPQ alignment quality lower than the given value (default: 0)."
+            echo "  -r              order, the alignment file is sorted by read name or by alignment position (default = pos)"
+            echo "  -s              stranded, define whether the RNAseq data is strand-specific. Choose from yes, no, reverse (default = no)"
+            echo "  -m              mode, how to handle reads that overlap with more than one feature. Choose from union, intersection-strict or intersection-nonempty (default = union)"
+            echo "  -n              nonunique, how to handle reads which aligned to or are assigned to more than one feature (default = none)"
+            echo "  -j              type, the feature type defined by the 3rd column in GFF file (default = mRNA)"
+            echo "  -d              idattr, the attribute to be used as feature ID from 9th column in GFF (default = Name)"
+            echo "  -p              python, the python version installed, for example python or python3. (default = python)"
+            echo ""
             echo "Description:"
             echo "  Aligns messenger RNA sequencing reads to given genome reference using HISAT2, retaining only uniquely aligned reads. 
                     Raw count estimation is undertaken using HTseq. "
+            echo ""        
             ;;
         *)
+            echo ""
             echo "Usage: mobileRNAcl [function] [options]"
+            echo ""
             echo "function:"
             echo "  RNAmergeGenomes         merge genome references"
             echo "  RNAmergeAnnotations     merge genome annoations"
             echo "  map_sRNA                Map and cluster small RNA sequencing reads"
             echo "  map_mRNA                Map and cluster messenger RNA sequencing reads"
-            echo "  metrics_sRNA            csv file of mapping metris for small RNA"
-            echo "  metrics_mRNA            csv file of mapping metris for messenger RNA"
-            echo "  --help          Display this help message"
+            echo "  --help                  Display this help message"
+            echo ""
             ;;
     esac
     exit 1
@@ -110,12 +123,11 @@ fi
 # Parse the first argument and dynamically call the corresponding function or display help
 case "$1" in
     RNAmergeGenomes)
-        # Check for --help flag
         if [ "$2" == "--help" ]; then
             usage RNAmergeGenomes
         else
             echo "Running RNAmergeGenomes..."
-            RNAmergeGenomes 
+            RNAmergeGenomes "${@:2}"
         fi
         ;;
     RNAmergeAnnotations)
@@ -123,39 +135,23 @@ case "$1" in
             usage RNAmergeAnnotations
         else
             echo "Running RNAmergeAnnotations..."
-            RNAmergeAnnotations
+            RNAmergeAnnotations "${@:2}"
         fi
         ;;
-    map_sRNA)
+     map_sRNA)
         if [ "$2" == "--help" ]; then
-            usage map_sRNA
+            usage 
         else
-            echo "Running map_sRNA..."
-            map_sRNA
+            echo "Running map..."
+            map_sRNA "${@:2}"
         fi
         ;;
-    map_mRNA)
+     map_mRNA)
         if [ "$2" == "--help" ]; then
-            usage map_mRNA
+            usage 
         else
-            echo "Running map_mRNA..."
-            map_mRNA
-        fi
-        ;;
-    metric_sRNA)
-        if [ "$2" == "--help" ]; then
-            usage metric_sRNA
-        else
-            echo "Running metric_sRNA..."
-            metric_sRNA
-        fi
-        ;;
-    metric_mRNA)
-        if [ "$2" == "--help" ]; then
-            usage metric_mRNA
-        else
-            echo "Running metric_mRNA..."
-            metric_mRNA
+            echo "Running map..."
+            map_mRNA "${@:2}"
         fi
         ;;
     --help)

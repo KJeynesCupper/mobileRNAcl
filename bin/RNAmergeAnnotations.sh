@@ -37,11 +37,17 @@ function RNAmergeAnnotations() {
     # Iterate over the input files and add prefixes
     for i in "${!input_files[@]}"; do
         file="${input_files[$i]}"
-        prefix=$(printf "%c_" $((65 + i)))  # Generate prefix like A_, B_, C_, etc.
+        
+        prefix=$(printf "%b_" $(printf '\\x%X' $((65 + i)))) #  add prefixes to pseudomolecule. 
         
         if [[ -f "$file" ]]; then
+            if [[ "$file" == *.gz ]]; then
+            gunzip -dc "$file" | sed '/^#/d' | sed "s/^/$prefix/" >> "$temp_file"
+            else
             # Add the prefix to each line of the current file and append to the temp file
             sed '/^#/d' "$file" | sed "s/^/$prefix/" >> "$temp_file"
+            fi 
+            
 
         else
             echo "File not found: $file"
@@ -49,8 +55,13 @@ function RNAmergeAnnotations() {
         fi
     done
 
-    # Move the concatenated result to the output file
-    mv "$temp_file" "$output_file"
+    # if user wants tozip output 
+    if [[ "$output_file" == *.gz ]]; then
+        gzip -c "$temp_file" > "$output_file"
+    else
+        mv "$temp_file" "$output_file"
+    fi
+
     echo "Genome annoation files are merged. Merged Annotation file is $output_file"
 }
 
