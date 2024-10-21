@@ -1,14 +1,13 @@
-mobileRNA command-line <a ><img src="docs/logo.png" align="right" height="138" /></a>
+mobileRNAcl: mobileRNA command-line <a ><img src="docs/logo.png" align="right" height="138" /></a>
 ======================================================================
-***UNDER DEVELOPMENT*** <br>
 This is a command-line package to undertake the merging of genome reference, alignment and clustering dircecting from the command-line instead of
-using R as an interface. Please note that this is still under development. 
+using R as an interface.
 
-This draft works on a Mac M1 chip computer, but has not been tested on other systems. 
+This version works on a Mac M1 chip computer, but has not been tested on other systems. 
 
 <br> 
 
-This is an extention of the R package, mobileRNA, where here we offer
+This is an extention of the R package, `mobileRNA`, where here we offer
 a command-line package that undertakes the pre-processing steps via 
 the command-line rather than via the R. This includes:
 
@@ -109,10 +108,10 @@ mobileRNAcl [function] [options...]
 
     function:
 	RNAmergeGenomes			merge genome references
-	RNAmergeAnnotations	    merge genome annoations
-	map_sRNA			    Map and cluster small RNA sequencing reads
-	map_mRNA			    Map and cluster messenger RNA sequencing reads
-    --help                  Display this help message
+	RNAmergeAnnotations	    	merge genome annoations
+	map_sRNA			Map and cluster small RNA sequencing reads
+	map_mRNA			Map and cluster messenger RNA sequencing reads
+    	--help                  	Display this help message
 ```
 
 
