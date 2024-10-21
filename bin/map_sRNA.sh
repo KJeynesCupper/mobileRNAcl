@@ -96,13 +96,32 @@ echo "Dicer miRNA: $dn_mirna"
     echo "Generating loci file..."
 
     # Define the merged output file path
-    local locifile="$o/locifile.txt"
+    locifile="$o/locifile.txt"
+    local locifile_temp="$o/locifile_temp.txt"
 
     # Find all the Results.gff3 files and concatenate them
-    find "$o/1_de_novo_detection" -type f -name "Results.gff3" -exec cat {} + > "$locifile"
+    find "$o/1_de_novo_detection" -type f -name "Results.gff3" -exec cat {} + > "$locifile_temp"
 
     # Remove duplicate lines
-    sort "$locifile" | uniq > "${locifile}.tmp" && mv "${locifile}.tmp" "$locifile"
+    sort "$locifile_temp" | uniq > "${locifile_temp}.tmp" && mv "${locifile_temp}.tmp" "$locifile_temp"
+
+    # re-format
+    awk -F '\t' '{
+        # Extract the chromosome (column 1), start (column 4), end (column 5)
+        # and the ID from the attribute field (column 9)
+        split($9, arr, ";"); 
+        for(i in arr) {
+            if(arr[i] ~ /ID=/) {
+                split(arr[i], idArr, "="); 
+                id = idArr[2]; 
+            }
+        }
+        # Print in the desired format
+        print $1 ":" $4 "-" $5 "\t" id
+    }' $locifile_temp > $locifile
+
+    rm $locifile_temp
+
 
     echo "Loci file generated, and saved to: $locifile"
     
